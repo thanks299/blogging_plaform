@@ -30,9 +30,9 @@ titleInput.addEventListener('input', () => {
 // Add event listener to the content textarea
 contentTextarea.addEventListener('input', () => {
   // Check content length
-  if (contentTextarea.value.length > 1000) {
+  if (contentTextarea.value.length > 1,000,000) {
     alert('Content should not exceed 1000 characters.');
-    contentTextarea.value = contentTextarea.value.substring(0, 1000);
+    contentTextarea.value = contentTextarea.value.substring(0, 1,000,000);
   }
 });
 

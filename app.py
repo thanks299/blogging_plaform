@@ -78,14 +78,23 @@ def create_post():
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
 def edit_post(post_id):
-    # post editing logic here
+    post = Post.query.get_or_404(post_id)
+    if request.method == 'POST':
+        post.title = request.form['title']
+        post.content = request.form['content']
+        db.session.commit()
+        return redirect(url_for('view_post', post_id=post.id))
+    return render_template('edit_post.html', post=post)  # For GET request, return a template
     pass
 
 
 @app.route('/post/<int:post_id>/delete', methods=['POST'], strict_slashes=False)
 @login_required
 def delete_post(post_id):
-    # post deletion logic here
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('index'))  # Ensure it redirects after deletion
     pass
 
 
@@ -101,6 +110,13 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/post/<int:post_id>', strict_slashes=False)
+def view_post(post_id):
+    # Logic to fetch and display the post
+    post = Post.query.get_or_404(post_id)
+    return render_template('view_post.html', post=post)
 
 
 if __name__ == '__main__':

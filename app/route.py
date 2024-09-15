@@ -85,3 +85,10 @@ def delete_post(post_id):
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/post/<int:post_id>')
+def view_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('view_post.html', post=post)
+
