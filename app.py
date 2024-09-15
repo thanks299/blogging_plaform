@@ -28,20 +28,27 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-   if request.method == 'POST': # Validate user credentials and log them in
-       return redirect('/dashboard')  # Redirect to another page after successful login
-   return render_template('/login.html')
-   pass
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if user and user.password == password:
+            login_user(user)
+            return redirect("/dashboard")
+    return render_template('/login.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # Handle registration form submission
-        # Create user in database
-        return redirect('/login')  # Redirect after successful registration
-    return render_template('/register.html')
-    pass
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        user = User(username=username, email=email, password=password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('register.html')
 
 
 @app.route('/post', methods=['GET', 'POST'])
@@ -61,7 +68,7 @@ def create_post():
 
         # Redirect to a page displaying the new post or a list of posts
         return redirect(url_for('view_post', post_id=new_post.id))
-    
+
     # If the request method is GET, render the form template
     return render_template('post.html')
     pass
@@ -79,6 +86,13 @@ def edit_post(post_id):
 def delete_post(post_id):
     # post deletion logic here
     pass
+
+
+# ! this is the dashbord route continue your implemetation
+@app.route('/dashboard', methods=['GET'])
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
 
 
 @app.route('/logout')

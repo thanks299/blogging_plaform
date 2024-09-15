@@ -9,14 +9,17 @@ db.init_app(app)
 
 login_manager = LoginManager(app)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 @app.route('/')
 def index():
     posts = Post.query.all()
     return render_template('index.html', posts=posts)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -28,6 +31,7 @@ def login():
             login_user(user)
             return redirect(url_for('index'))
     return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -41,6 +45,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html')
 
+
 @app.route('/post', methods=['GET', 'POST'])
 @login_required
 def create_post():
@@ -53,6 +58,7 @@ def create_post():
         return redirect(url_for('index'))
     return render_template('post.html')
 
+
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
@@ -64,6 +70,7 @@ def edit_post(post_id):
         return redirect(url_for('index'))
     return render_template('edit_post.html', post=post)
 
+
 @app.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
@@ -72,9 +79,9 @@ def delete_post(post_id):
     db.session.commit()
     return redirect(url_for('index'))
 
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
