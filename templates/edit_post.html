@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Blog</title>
+  <meta name="description" content="A blog featuring posts on various topics.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_post.html.css') }}">
+</head>
+  <h1>Edit Post</h1>
+  <form action="" method="post">
+    <label>Title:</label>
+    <input type="text" name="title" value="{{ post.title }}"><br>
+    <label>Content:</label>
+    <textarea name="content">{{ post.content }}</textarea><br>
+    <input type="submit" value="Update Post">
+  </form>
+</html>

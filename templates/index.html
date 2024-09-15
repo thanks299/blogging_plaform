@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Blog</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="A blog featuring posts on various topics.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="content">
+    <h1>Blog Posts</h1>
+    <ul>
+      {% for post in posts %}
+      <li>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <p>Author: {{ post.author.username }}</p>
+        <p>
+          <a href="{{ url_for('edit_post', post_id=post.id) }}">Edit</a> |
+          <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post">
+            <input type="submit" value="Delete">
+          </form>
+        </p>
+      </li>
+      {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('create_post') }}">Create New Post</a></p>
+  </div>
+</body>
+</html>
