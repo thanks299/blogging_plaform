@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import send_from_directory
+import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import User, Post, db
@@ -119,6 +121,12 @@ def view_post(post_id):
     # Logic to fetch and display the post
     post = Post.query.get_or_404(post_id)
     return render_template('view_post.html', post=post)
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+            'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 if __name__ == '__main__':
