@@ -5,12 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import User, Post, db
 from flask_migrate import Migrate
+from flask_wtf import CSRFProtect
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blogging_platform.db'
 db.init_app(app)
 migrate = Migrate(app, db)
+csrf = CSRFProtect(app)
 
 login_manager = LoginManager(app)
 

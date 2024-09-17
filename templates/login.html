@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.html.css') }}">
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/login.html.css') }}">
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="post">
-        <label>Username:</label>
-        <input type="text" name="username"><br>
-        <label>Password:</label>
-        <input type="password" name="password"><br>
-        <input type="submit" value="Login">
-    </form>
-    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+	<h1>TREEFREE</h1>
+	<form method="post">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+		<label>Username:</label>
+		<input type="text" name="username"><br>
+
+		<label>Password:</label>
+		<input type="password" name="password"><br>
+
+		<label for="remember-me">Remember me</label>
+		<input type="checkbox" id="remember-me" name="remember-me">
+
+		<input type="submit" value="Log in">
+		<a href="forgot-password.html">Forgot your password?</a>
+	</form>
+	<script src="href="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 </html>
