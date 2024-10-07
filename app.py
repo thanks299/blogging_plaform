@@ -8,6 +8,12 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from models import User, Post, db
 from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
+import itsdangerous
+from flask_mail import Mail, Message  # For sending emails
+
+app = Flask(__name__)
+app.secret_key = '438314f3511667d3ccac2d78252411ae677851415209291f'
+mail = Mail(app)
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
@@ -127,6 +133,33 @@ def view_post(post_id):
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
             'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+def send_reset_email(user_email, token):
+    msg = Message("Password Reset Request",
+                  sender='noreply@demo.com',
+                  recipients=[user_email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('reset_password', token=token, _external=True)}
+If you did not make this request then simply ignore this email and no changes will be made.
+'''
+    mail.send(msg)
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form['email']
+        user = get_user_by_email(email)  # type: ignore # Fetch user from your database
+
+        if user:
+            # Create a token
+            s = itsdangerous.URLSafeTimedSerializer(app.secret_key)
+            token = s.dumps(email, salt='password-reset-salt')
+            send_reset_email(email, token)
+            flash('A reset link has been sent to your email.', 'success')
+        else:
+            flash('Email not found.', 'danger')
+        return redirect(url_for('login'))  # Redirect to login or another page
+    return render_template('forgot-password.html')
 
 
 if __name__ == '__main__':
