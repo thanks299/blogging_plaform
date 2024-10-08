@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session 
 from flask import send_from_directory
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -10,6 +10,7 @@ from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
 import itsdangerous
 from flask_mail import Mail, Message  # For sending emails
+from authlib.integrations.flask_client import OAuth
 
 app = Flask(__name__)
 app.secret_key = '438314f3511667d3ccac2d78252411ae677851415209291f'
@@ -20,8 +21,9 @@ app.config.from_object('config.Config')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blogging_platform.db'
 db.init_app(app)
 migrate = Migrate(app, db)
-csrf = CSRFProtect(app)
 
+csrf = CSRFProtect(app)
+oauth = OAuth(app)
 login_manager = LoginManager(app)
 
 
@@ -40,7 +42,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['login']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
         if user and user.password == password:
@@ -104,7 +106,7 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
-    return redirect(url_for('index'))  # Ensure it redirects after deletion
+    return redirect(url_for('index'))
     pass
 
 
@@ -134,6 +136,7 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
             'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/send-reset-email', methods=['POST'])
 def send_reset_email(user_email, token):
     msg = Message("Password Reset Request",
                   sender='noreply@demo.com',
@@ -143,24 +146,47 @@ def send_reset_email(user_email, token):
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
+    flash('Reset email sent!', 'success')
+    return redirect(url_for('login'))
 
-@app.route('/forgot-password', methods=['GET', 'POST'])
+@app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
         email = request.form['email']
-        user = get_user_by_email(email)  # type: ignore # Fetch user from your database
-
+        user = get_user_by_email(email)  # Fetch user from your database
+        
         if user:
-            # Create a token
+
             s = itsdangerous.URLSafeTimedSerializer(app.secret_key)
             token = s.dumps(email, salt='password-reset-salt')
             send_reset_email(email, token)
             flash('A reset link has been sent to your email.', 'success')
         else:
             flash('Email not found.', 'danger')
-        return redirect(url_for('login'))  # Redirect to login or another page
+            return redirect(url_for('login'))
+    
     return render_template('forgot-password.html')
 
+
+@app.route('/blog', methods=['GET'])
+def blog():
+    return render_template('blog.html') 
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    return render_template('contact.html') 
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html') 
+
+@app.route('/membership', methods=['GET'])
+def membership():
+    return render_template('membership.html')
+
+@app.route('/back_to_login', methods=['GET'])
+def back_to_login():
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,41 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Blog</title>
-  <meta charset="UTF-8">
-  <meta name="description" content="A blog featuring posts on various topics.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <div class="content">
-    <h1>Blog Posts</h1>
-    <ul>
-      {% for post in posts %}
-      <li>
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-        <p>Author: {{ post.author.username }}</p>
-        <p>
-          <a href="{{ url_for('edit_post', post_id=post.id) }}">Edit</a> |
-          <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline;">
-            <input type="submit" value="Delete">
-          </form>
-        </p>
-      </li>
-      {% endfor %}
-    </ul>
-    <p><a href="{{ url_for('create_post') }}">Create New Post</a></p>
-  </div>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <header>
+        <div class="logo">TREEFREE</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('blog') }}">blog</a></li>
+                <li><a href="{{ url_for('contact') }}">contact</a></li>
+                <li><a href="{{ url_for('about') }}">about</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+        </div>
+    </header>
+
+    <main>
+        <section class="featured-posts">
+            <h2>Featured Posts</h2>
+            <!-- Insert featured posts here -->
+        </section>
+
+        <section class="latest-posts">
+            <h2>Latest Posts</h2>
+            <!-- Insert latest blog entries here -->
+        </section>
+
+        <aside class="sidebar">
+            <section class="about-me">
+                <h3>About Me</h3>
+                <p>Short bio about the author.</p>
+            </section>
+            <section class="newsletter-signup">
+                <h3>Subscribe</h3>
+                <form action="/subscribe" method="post">
+                    <input type="email" placeholder="Your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </section>
+            <section class="social-media">
+                <h3>Follow Me</h3>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+            </section>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Blog. All rights reserved.</p>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-service">Terms of Service</a>
+    </footer>
+
 </body>
 </html>
-
