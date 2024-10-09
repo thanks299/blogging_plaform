@@ -67,8 +67,10 @@ button:hover {
 }
 
 .google-login {
-    background-color: #ffffff;
-    color: #555555;
+    background-color: #555;
+    color: #c1c1c1;
+    border: none;
+    border-radius: 8px;
     margin-bottom: 15px;
     width: 100%;
     padding: 10px;
