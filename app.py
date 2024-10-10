@@ -148,6 +148,7 @@ If you did not make this request then simply ignore this email and no changes wi
     flash('Reset email sent!', 'success')
     return redirect(url_for('login'))
 
+
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
@@ -190,7 +191,6 @@ def back_to_login():
 @app.route('/write', methods=['GET', 'POST'])
 def Write():
     return render_template('post.html')
-
 
 
 if __name__ == '__main__':

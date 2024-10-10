@@ -16,26 +16,26 @@
                         <i data-lucide="book-open" class="h-6 w-6"></i>
                         <span class="hidden font-bold sm:inline-block">TREEFREE</span>
                     </a>
-                    <nav class="flex items-center space-x-6 text-sm font-medium">
-                        <a href="/about">About</a>
-                        <a href="/membership">Membership</a>
-                        <a href="/write">Write</a>
-                    </nav>
                 </div>
                 <button class="btn btn-outline btn-icon mr-2 px-0 text-base hover:bg-transparent focus:ring-0 md:hidden">
                     <i data-lucide="menu" class="h-5 w-5"></i>
                     <span class="sr-only">Toggle Menu</span>
                 </button>
                 <div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                    <div class="w-full flex-1 md:w-auto md:flex-none">
-                        <form>
-                            <div class="relative">
-                                <i data-lucide="search" class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"></i>
-                                <input type="search" placeholder="Search articles..." class="input pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]">
-                            </div>
-                        </form>
-                    </div>
-                    <nav class="flex items-center">
+                    <nav class="flex items-center space-x-6 button-container ">
+                        <nav class="flex items-center space-x-6 text-sm font-medium">
+                            <a href="/about">About</a>
+                            <a href="/membership">Membership</a>
+                            <a href="/write">Write</a>
+                        </nav>
+                        <div class="w-full flex-1 md:w-auto md:flex-none">
+                            <form>
+                                <div class="relative search-container">
+                                    <i data-lucide="search" class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"></i>
+                                    <input type="search" placeholder="Search articles..." class="input pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]">
+                                </div>
+                            </form>
+                        </div>
                         <a href="{{ url_for('login') }}"><button class="btn btn-ghost mr-2">login</button></a>
                         <a href="{{ url_for('GetStarted') }}"><button class="btn">Get Started</button></a>
                     </nav>
