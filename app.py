@@ -51,8 +51,8 @@ def login():
     return render_template('/login.html')
 
 
-@app.route('/register', methods=['GET', 'POST'], strict_slashes=False)
-def register():
+@app.route('/Get-Started', methods=['GET', 'POST'], strict_slashes=False)
+def GetStarted():
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -61,6 +61,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
+    
     return render_template('register.html')
 
 
@@ -109,8 +110,6 @@ def delete_post(post_id):
     return redirect(url_for('index'))
     pass
 
-
-# ! this is the dashbord route continue your implemetation
 @app.route('/dashboard', methods=['GET'], strict_slashes=False)
 @login_required
 def dashboard():
@@ -187,6 +186,12 @@ def membership():
 @app.route('/back_to_login', methods=['GET'])
 def back_to_login():
     return redirect(url_for('login'))
+
+@app.route('/write', methods=['GET', 'POST'])
+def Write():
+    return render_template('post.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

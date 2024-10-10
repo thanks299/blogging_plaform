@@ -3,64 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog Site</title>
+    <title>TREEFREE</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
-    <header>
-        <div class="logo">TREEFREE</div>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('blog') }}">blog</a></li>
-                <li><a href="{{ url_for('contact') }}">contact</a></li>
-                <li><a href="{{ url_for('about') }}">about</a></li>
-            </ul>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-    </header>
-
-    <main>
-        <section class="featured-posts">
-            <h2>Featured Posts</h2>
-            <!-- Insert featured posts here -->
-        </section>
-
-        <section class="latest-posts">
-            <h2>Latest Posts</h2>
-            <!-- Insert latest blog entries here -->
-        </section>
-
-        <aside class="sidebar">
-            <section class="about-me">
-                <h3>About Me</h3>
-                <p>Short bio about the author.</p>
+    <div class="flex-col min-h-screen">
+        <header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div class="container flex h-14 items-center">
+                <div class="mr-4 hidden md:flex">
+                    <a class="mr-6 flex items-center space-x-2" href="/">
+                        <i data-lucide="book-open" class="h-6 w-6"></i>
+                        <span class="hidden font-bold sm:inline-block">TREEFREE</span>
+                    </a>
+                    <nav class="flex items-center space-x-6 text-sm font-medium">
+                        <a href="/about">About</a>
+                        <a href="/membership">Membership</a>
+                        <a href="/write">Write</a>
+                    </nav>
+                </div>
+                <button class="btn btn-outline btn-icon mr-2 px-0 text-base hover:bg-transparent focus:ring-0 md:hidden">
+                    <i data-lucide="menu" class="h-5 w-5"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                </button>
+                <div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                    <div class="w-full flex-1 md:w-auto md:flex-none">
+                        <form>
+                            <div class="relative">
+                                <i data-lucide="search" class="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"></i>
+                                <input type="search" placeholder="Search articles..." class="input pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]">
+                            </div>
+                        </form>
+                    </div>
+                    <nav class="flex items-center">
+                        <a href="{{ url_for('login') }}"><button class="btn btn-ghost mr-2">login</button></a>
+                        <a href="{{ url_for('GetStarted') }}"><button class="btn">Get Started</button></a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main class="flex-1">
+            <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+                <div class="container px-4 md:px-6">
+                    <div class="flex flex-col items-center space-y-4 text-center">
+                        <div class="space-y-2">
+                            <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                                Welcome to TREEFREE
+                            </h1>
+                            <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+                                Discover stories, thinking, and expertise from writers on any topic.
+                            </p>
+                        </div>
+                        <div class="space-x-4">
+                            <button class="btn">Start Reading</button>
+                            <a href="{{ url_for('Write') }}"><button class="btn btn-outline">Start Writing</button></a>
+                        </div>
+                    </div>
+                </div>
             </section>
-            <section class="newsletter-signup">
-                <h3>Subscribe</h3>
-                <form action="/subscribe" method="post">
-                    <input type="email" placeholder="Your email" required>
-                    <button type="submit">Subscribe</button>
-                </form>
+            <section class="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
+                <div class="container px-4 md:px-6">
+                    <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">Featured Articles</h2>
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="featured-articles">
+                        <!-- Featured articles will be dynamically inserted here -->
+                    </div>
+                </div>
             </section>
-            <section class="social-media">
-                <h3>Follow Me</h3>
-                <a href="#">Twitter</a>
-                <a href="#">Instagram</a>
-                <a href="#">Facebook</a>
-            </section>
-        </aside>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 My Blog. All rights reserved.</p>
-        <a href="/privacy-policy">Privacy Policy</a>
-        <a href="/terms-of-service">Terms of Service</a>
-    </footer>
-
+        </main>
+        <footer class="w-full py-6 bg-gray-100 dark:bg-gray-800">
+            <div class="container px-4 md:px-6">
+                <div class="flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+                    <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+                        <i data-lucide="book-open" class="h-6 w-6"></i>
+                        <p class="text-center text-sm leading-loose md:text-left">
+                            © 2023 TREEFREE. All rights reserved.
+                        </p>
+                    </div>
+                    <nav class="flex items-center justify-center gap-4 text-sm">
+                        <a href="/about">About</a>
+                        <a href="/terms">Terms</a>
+                        <a href="/privacy">Privacy Policy</a>
+                    </nav>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/script.js') }}">
 </body>
 </html>
