@@ -41,7 +41,18 @@ body {
   padding: 170px;
 }
 
-
+.social-icon {
+  width: 50%;
+}
+.social-icons {
+  margin-top: 30px;
+}
+.social-icons img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  padding-left: 10%;
+}
 .space-x-2 > * + *, 
 .space-x-4 > * + *, 
 .space-x-6 > * + * { 

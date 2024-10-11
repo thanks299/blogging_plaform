@@ -71,21 +71,42 @@
             </section>
         </main>
         <footer class="w-full py-6 bg-gray-100 dark:bg-gray-800">
-            <div class="container px-4 md:px-6">
-                <div class="flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-                    <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-                        <i data-lucide="book-open" class="h-6 w-6"></i>
-                        <p class="text-center text-sm leading-loose md:text-left">
-                            © 2023 TREEFREE. All rights reserved.
-                        </p>
+            <nav>
+                <nav class="social-icon">
+                    <div class="social-icons">
+                        <a href="https://x.com/heisthanks" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                        </a>
+                        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"  alt="TikTok">
+
+                        <a href="https://www.linkedin.com/in/iamthanks-983b89234" target="_blank">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+                        </a>
+                        
+                        <a href="https://www.instagram.com/iamthanks2" target="_blank">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                        </a>
+                        <a href="https://github.com/thanks299" target="_blank">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                        </a>
                     </div>
-                    <nav class="flex items-center justify-center gap-4 text-sm">
-                        <a href="/about">About</a>
-                        <a href="/terms">Terms</a>
-                        <a href="/privacy">Privacy Policy</a>
-                    </nav>
+                </nav> <br>
+                <div class="container px-4 md:px-6">
+                    <div class="flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+                        <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+                            <i data-lucide="book-open" class="h-6 w-6"></i>
+                            <p class="text-center text-sm leading-loose md:text-left">
+                                © 2023 TREEFREE. All rights reserved.
+                            </p>
+                        </div>
+                        <nav class="flex items-center justify-center gap-4 text-sm space-x-6 ">
+                            <a href="/about">About</a>
+                            <a href="/terms">Terms</a>
+                            <a href="/privacy">Privacy Policy</a>
+                        </nav>
+                    </div>
                 </div>
-            </div>
+            </nav>
         </footer>
     </div>
     <link rel="stylesheet" href="{{ url_for('static', filename='js/script.js') }}">
