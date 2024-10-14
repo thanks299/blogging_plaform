@@ -212,6 +212,7 @@ def back_to_login():
     return redirect(url_for('login'))
 
 @app.route('/write', methods=['GET', 'POST'])
+@login_required
 def Write():
     return render_template('post.html')
 
