@@ -32,6 +32,29 @@ def load_user(user_id):
     session = db.session()  # or however your session is defined
     return session.get(User, int(user_id))
 
+with app.app_context():
+    db.create_all()
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        name = request.form.get('name')
+        password = request.form.get('password')
+        
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash('Email address already exists')
+            return redirect(url_for('signup'))
+        
+        new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
+        
+        return redirect(url_for('login'))
+    
+    return render_template('signup.html')
 
 @app.route('/', strict_slashes=False)
 def index():
@@ -194,4 +217,4 @@ def Write():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
