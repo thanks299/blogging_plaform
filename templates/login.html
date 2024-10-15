@@ -10,9 +10,16 @@
     <div class="login-container">
         <div class="login-box">
             <h1 class="logo">TREEFREE</h1>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
             <div class="button-group">
                 <button class="signin-button active">Sign In</button>
-                <button class="signup-button">Sign Up</button>
+                <a href="{{ url_for('signup') }}"><button class="signup-button">Sign Up</button></a>
             </div>
             <button class="google-login">Sign in with Google</button>
 			<form method="post">
@@ -32,5 +39,6 @@
             <a href="{{ url_for('forgot_password') }}">Forgot your password?</a>
         </div>
     </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/login.js') }}">
 </body>
 </html>
