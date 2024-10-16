@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Welcome to Your Dashboard, {{ name }}!</h1>
-        <p>This is your personalized dashboard. You can add more content here based on the user's data.</p>
+        <p>This is your personalized dashboard.</p>
         <a href="{{ url_for('logout') }}">Logout</a>
     </div>
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>

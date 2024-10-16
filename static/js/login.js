@@ -91,3 +91,12 @@ function getPasswordStrength(password) {
 
   return { message: messages[strength], className: classes[strength] };
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const googleSignInButton = document.getElementById('google-signin-button');
+
+  // When Google sign-in button is clicked, redirect to Google login
+  googleSignInButton.addEventListener('click', function() {
+      window.location.href = "/login/google";  // This should match your Flask route for Google OAuth
+  });
+});
