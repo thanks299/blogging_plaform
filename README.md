@@ -2,9 +2,9 @@ Here’s a detailed `README.md` for your **blogging platform** project, similar 
 
 ---
 
-# Blogging Platform
+# TREEFREE
 
-The **Blogging Platform** is a robust web application designed to allow users to create, edit, and manage blog posts. It supports user authentication, dynamic content management, and various interactive features for users to explore and engage with blog posts. This project also includes an admin panel for managing users and posts, as well as support for premium membership functionality.
+The **TREEFREE** is a robust web application designed to allow users to create, edit, and manage blog posts. It supports user authentication, dynamic content management, and various interactive features for users to explore and engage with blog posts. This project also includes an admin panel for managing users and posts, as well as support for premium membership functionality.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -23,14 +23,14 @@ This **Blogging Platform** enables users to sign up, log in, write blog posts, a
 
 ## Team Roles
 
-**Abubakr Parvez - Lead Developer**
+**Abubakr Parvez - Backend Developer**
 - Responsible for backend development, API design, and deployment.
 
-**Shuaib Mohammed - Frontend Developer**
-- Manages UI/UX design, frontend implementation using JavaScript, HTML, and CSS.
+**Shuaib Mohammed - Backend Developer**
+- Responsible too for backend development, API design, and deployment.
 
 **Agbeble Thanks - Full-Stack Developer**
-- Contributes to both backend and frontend development, ensuring smooth interaction between the client and server-side functionalities.
+- Manages UI/UX design, frontend implementation using JavaScript, HTML, and CSS.Contributes to both backend and frontend development, ensuring smooth interaction between the client and server-side functionalities.
 
 ## Features
 
@@ -234,4 +234,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-This detailed `README.md` serves as a comprehensive guide for developers and contributors, covering setup, usage, API documentation, and more. Let me know if you'd like further customization!
+This detailed `README.md` serves as a comprehensive guide for developers and contributors, covering setup, usage, API documentation, and more.
