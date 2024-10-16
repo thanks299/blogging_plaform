@@ -1,5 +1,3 @@
-Here’s a detailed `README.md` for your **blogging platform** project, similar to the structure provided for the Sitrix project:
-
 ---
 
 # TREEFREE
