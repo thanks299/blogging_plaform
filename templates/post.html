@@ -9,10 +9,6 @@
 <body>
     <header>
         <h1>Create a New Post</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
-        </nav>
     </header>
     <form method="POST" action="{{ url_for('create_post') }}">
         <label for="title">Title:</label>
