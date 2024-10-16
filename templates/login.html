@@ -9,7 +9,7 @@
 <body>
     <div class="login-container">
         <div class="login-box">
-            <h1 class="logo">TREEFREE</h1>
+            <h1 class="logo"><img src="{{ url_for('static', filename='images/treefree image.png') }}" alt="TREEFREE" width="200px" height="100px">TREEFREE</h1>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="alert alert-danger">
