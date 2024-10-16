@@ -21,10 +21,17 @@
                 <button class="signin-button active">Sign In</button>
                 <a href="{{ url_for('signup') }}"><button class="signup-button">Sign Up</button></a>
             </div>
-            <button class="google-login">Sign in with Google</button>
-			<form method="post">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
+            <!-- Google Sign-in button -->
+            <div class="google-login-container">
+                <a href="{{ url_for('google_login') }}" class="google-login-button">
+                    <img src="{{ url_for('static', filename='images/google-logo.png') }}" alt="Google Logo" class="google-logo">
+                    Sign in with Google
+                </a>
+            </div>
+
+            <form method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="text" name="login" placeholder="Enter your username or email" required>
                 <input type="password" name="password" placeholder="Enter your Password" required>
                 <button type="submit" class="login-btn">Log In</button>
@@ -39,6 +46,5 @@
             <a href="{{ url_for('forgot_password') }}">Forgot your password?</a>
         </div>
     </div>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/login.js') }}">
 </body>
 </html>

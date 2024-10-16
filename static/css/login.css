@@ -53,6 +53,68 @@ button {
     font-size: 14px;
 }
 
+/* Style the Google Login Button */
+.google-login-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.google-login-button {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #555;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.google-login-button:hover {
+    background-color: #f1f1f1;
+}
+
+.google-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+/* Style the Google Login Button */
+.google-login-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.google-login-button {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #555;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.google-login-button:hover {
+    background-color: #f1f1f1;
+}
+
+.google-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+
 /* Default styling for both buttons */
 .signin-button, .signup-button {
     background-color: #ff4d80; /* Default red */

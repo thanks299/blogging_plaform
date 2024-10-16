@@ -103,6 +103,19 @@ def GetStarted():
     
     return render_template('register.html')
 
+@app.route('/login/google')
+def google_login():
+    if not google.authorized:
+        return redirect(url_for('google.login'))  # Redirect to Google OAuth login page
+    resp = google.get("/oauth2/v1/userinfo")
+    assert resp.ok, resp.text
+    user_info = resp.json()
+    
+    # Process the user info and log in the user
+    # For example, you can save the user to the database or just authenticate the user based on the email
+    session['email'] = user_info['email']
+    
+    return redirect(url_for('dashboard'))
 
 @app.route('/post', methods=['GET', 'POST'], strict_slashes=False)
 @login_required
@@ -147,7 +160,9 @@ def delete_post(post_id):
 @app.route('/dashboard', methods=['GET'], strict_slashes=False)
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    if 'email' not in session:
+        return redirect(url_for('google_login'))  # Redirect to login if not authenticated
+    return f"Welcome, {session['email']}! You are logged in."  # Display the user's email
 
 
 @app.route('/logout', strict_slashes=False)
