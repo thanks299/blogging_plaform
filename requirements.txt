@@ -10,6 +10,7 @@ click==8.1.7
 cryptography==3.4.8
 distro==1.7.0
 Flask==3.0.3
+Flask-Paginate==0.7.0
 Flask-Login==0.6.3
 Flask-Mail==0.10.0
 Flask-Migrate==4.0.7
