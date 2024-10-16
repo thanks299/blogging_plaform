@@ -11,12 +11,13 @@ from flask_wtf import CSRFProtect
 import itsdangerous
 from flask_mail import Mail, Message  # For sending emails
 from authlib.integrations.flask_client import OAuth
+from config import Config
+from flask_paginate import Pagination, get_page_parameter
 
 app = Flask(__name__)
 app.secret_key = '438314f3511667d3ccac2d78252411ae677851415209291f'
 mail = Mail(app)
 
-app = Flask(__name__)
 app.config.from_object('config.Config')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blogging_platform.db'
 db.init_app(app)
@@ -56,10 +57,22 @@ def signup():
     
     return render_template('signup.html')
 
-@app.route('/', strict_slashes=False)
+@app.route('/')
 def index():
-    posts = Post.query.all()
-    return render_template('index.html', posts=posts)
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    per_page = 9  # Number of posts per page
+    offset = (page - 1) * per_page
+    total = Post.query.count()
+    
+    posts = Post.query.order_by(Post.id.desc()).offset(offset).limit(per_page).all()
+    
+    pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap4')
+    
+    return render_template('index.html', 
+                           posts=posts, 
+                           page_num=page, 
+                           total_pages=pagination.pages)
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -71,6 +84,9 @@ def login():
         if user and user.password == password:
             login_user(user)
             return redirect("/dashboard")
+        else:
+            # Handle invalid credentials
+            return render_template('login.html', error="Invalid username or password")
     return render_template('/login.html')
 
 
@@ -92,21 +108,12 @@ def GetStarted():
 @login_required
 def create_post():
     if request.method == 'POST':
-        # Get form data
         title = request.form.get('title')
         content = request.form.get('content')
-
-        # Create a new post object
         new_post = Post(title=title, content=content, author=current_user)
-
-        # Add the new post to the database
         db.session.add(new_post)
         db.session.commit()
-
-        # Redirect to a page displaying the new post or a list of posts
         return redirect(url_for('view_post', post_id=new_post.id))
-
-    # If the request method is GET, render the form template
     return render_template('post.html')
     pass
 
@@ -115,6 +122,8 @@ def create_post():
 @login_required
 def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)  # Forbidden access
     if request.method == 'POST':
         post.title = request.form['title']
         post.content = request.form['content']
@@ -128,6 +137,8 @@ def edit_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)  # Forbidden access
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('index'))

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership - Blogging Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/members.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/membership">Membership</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>Join Our Membership Program</h1>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Why Become a Member?</h2>
+            <p>As a member of our blogging platform, you'll have access to exclusive features that enhance your experience as both a writer and a reader. Membership allows you to connect with other users, follow your favorite authors, and receive personalized content recommendations.</p>
+        </section>
+
+        <section class="benefits">
+            <h2>Membership Benefits</h2>
+            <ul>
+                <li>Exclusive access to premium content and articles</li>
+                <li>Early access to new features and tools</li>
+                <li>Ability to follow your favorite authors and get notified of new posts</li>
+                <li>Enhanced customization options for your personal profile</li>
+                <li>Priority customer support</li>
+            </ul>
+        </section>
+
+        <section class="plans">
+            <h2>Membership Plans</h2>
+            <p>We offer different membership plans to suit your needs:</p>
+            <div class="plan-cards">
+                <div class="plan-card">
+                    <h3>Free</h3>
+                    <p class="price">$0</p>
+                    <ul>
+                        <li>Access to public posts</li>
+                        <li>Basic profile features</li>
+                    </ul>
+                    <a href="/register" class="btn">Sign Up</a>
+                </div>
+                <div class="plan-card featured">
+                    <h3>Premium</h3>
+                    <p class="price">$9.99/month</p>
+                    <ul>
+                        <li>All free plan features</li>
+                        <li>Access to premium content</li>
+                        <li>Early access to new tools</li>
+                        <li>Enhanced profile customization</li>
+                    </ul>
+                    <a href="/register" class="btn">Choose Plan</a>
+                </div>
+                <div class="plan-card">
+                    <h3>Pro</h3>
+                    <p class="price">$19.99/month</p>
+                    <ul>
+                        <li>All Premium features</li>
+                        <li>Direct communication with authors</li>
+                        <li>Advanced analytics for your posts</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="/register" class="btn">Choose Plan</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="join-steps">
+            <h2>How to Join</h2>
+            <p>Becoming a member is easy! Just follow these simple steps:</p>
+            <ol>
+                <li><a href="/register">Sign up</a> for a free account.</li>
+                <li>Choose your membership plan from the options above.</li>
+                <li>Enjoy your enhanced experience on our platform!</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Blogging Platform. All rights reserved.</p>
+    </footer>
+</body>
+</html>

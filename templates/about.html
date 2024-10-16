@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Blogging Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- Assuming the CSS file is linked here -->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <h1>About Our Blogging Platform</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Our Mission</h2>
+            <p>Our blogging platform aims to provide a seamless experience for writers and readers. Whether you're sharing your thoughts or diving into insightful articles, our platform makes it easy and enjoyable.</p>
+        </section>
+
+        <section>
+            <h2>About the Project</h2>
+            <p>This project is developed as a collaborative effort by our team to create a user-friendly blog platform. Our GitHub repository, <a href="https://github.com/thanks299/blogging_plaform" target="_blank">Blogging Platform Repository</a>, is where the code lives and evolves.</p>
+            <p>The project focuses on providing essential features like user authentication, post creation, editing, and browsing with a simple, intuitive UI. It leverages Flask for the backend and supports secure authentication, dynamic content management, and more.</p>
+        </section>
+
+        <section>
+            <h2>Technologies Used</h2>
+            <ul>
+                <li>Flask (Backend Framework)</li>
+                <li>SQLAlchemy (Database ORM)</li>
+                <li>Jinja2 (Template Engine)</li>
+                <li>Flask-Login (User Authentication)</li>
+                <li>Flask-Mail (Email Integration)</li>
+                <li>HTML5, CSS3, JavaScript (Frontend Technologies)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Meet the Team</h2>
+            <p>Our team comprises passionate developers working together to bring this platform to life:</p>
+            <ul>
+                <li><strong>Thanks Agbeble</strong> - Project Lead & Full-Stack Developer</li>
+                <li><strong>Shuaib Mohammed</strong> - Backend Developer</li>
+                <li><strong>Abubakr Parvez</strong> - Backend Developer</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Blogging Platform. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

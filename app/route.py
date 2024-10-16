@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user
 from .models import User, Post, db
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
