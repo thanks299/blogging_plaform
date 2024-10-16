@@ -9,7 +9,8 @@
 <body>
     <div class="login-container">
         <div class="login-box">
-            <h1 class="logo"><img src="{{ url_for('static', filename='images/treefree image.png') }}" alt="TREEFREE" width="200px" height="100px">TREEFREE</h1>
+            <img src="{{ url_for('static', filename='images/treefree image.png') }}" alt="TREEFREE" width="200px" height="100px">
+            <h1 class="logo">TREEFREE</h1>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="alert alert-danger">
@@ -17,6 +18,8 @@
                 </div>
             {% endif %}
             {% endwith %}
+            <h3 class="written">New around here?</h3> <br>
+            <h4 class="written">Join millions of users creating and sharing Posts!</h4> <br>
             <div class="button-group">
                 <button class="signin-button active">Sign In</button>
                 <a href="{{ url_for('signup') }}"><button class="signup-button">Sign Up</button></a>

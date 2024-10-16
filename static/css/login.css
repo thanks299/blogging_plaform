@@ -38,6 +38,10 @@ h1.logo {
     animation: logoAnimation 1.5s ease-in-out infinite alternate;
 }
 
+.written {
+    color: #555;
+}
+
 .button-group {
     display: flex;
     justify-content: space-around;
