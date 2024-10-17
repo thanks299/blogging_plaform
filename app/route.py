@@ -30,9 +30,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.password == password:
             login_user(user)
-            # Redirect to the next page or the index if no next page is provided
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('index'))
+            return redirect(url_for('index'))
     return render_template('login.html')
 
 
@@ -50,12 +48,11 @@ def register():
 
 
 @app.route('/post', methods=['GET', 'POST'])
-@login_required  # Ensure login is required before accessing this route
+@login_required
 def create_post():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        # Ensure the current logged-in user is the author of the post
         post = Post(title=title, content=content, author_id=current_user.id)
         db.session.add(post)
         db.session.commit()
