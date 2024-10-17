@@ -12,7 +12,6 @@ import itsdangerous
 from flask_mail import Mail, Message  # For sending emails
 from authlib.integrations.flask_client import OAuth
 from config import Config
-from flask_paginate import Pagination, get_page_parameter
 
 app = Flask(__name__)
 app.secret_key = '438314f3511667d3ccac2d78252411ae677851415209291f'
