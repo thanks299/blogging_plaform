@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, render_template, request, redirect, url_for, flash, session 
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask import send_from_directory
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -64,14 +64,11 @@ def index():
     per_page = 9  # Number of posts per page
     offset = (page - 1) * per_page
     total = Post.query.count()
-    
+
     posts = Post.query.order_by(Post.id.desc()).offset(offset).limit(per_page).all()
-    
-    
     return render_template('index.html', 
                            posts=posts, 
                            page_num=page)
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -114,7 +111,6 @@ def create_post():
         db.session.commit()
         return redirect(url_for('view_post', post_id=new_post.id))
     return render_template('post.html')
-    pass
 
 
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'], strict_slashes=False)
@@ -128,8 +124,7 @@ def edit_post(post_id):
         post.content = request.form['content']
         db.session.commit()
         return redirect(url_for('view_post', post_id=post.id))
-    return render_template('edit_post.html', post=post)  # For GET request, return a template
-    pass
+    return render_template('edit_post.html', post=post)
 
 
 @app.route('/post/<int:post_id>/delete', methods=['POST'], strict_slashes=False)
@@ -141,7 +136,7 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('index'))
-    pass
+
 
 @app.route('/dashboard', methods=['GET'], strict_slashes=False)
 @login_required
@@ -158,7 +153,6 @@ def logout():
 
 @app.route('/post/<int:post_id>', strict_slashes=False)
 def view_post(post_id):
-    # Logic to fetch and display the post
     post = Post.query.get_or_404(post_id)
     return render_template('view_post.html', post=post)
 
@@ -166,7 +160,8 @@ def view_post(post_id):
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-            'favicon.ico', mimetype='image/vnd.microsoft.icon')
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 
 @app.route('/send-reset-email', methods=['POST'])
 def send_reset_email(user_email, token):
@@ -186,10 +181,9 @@ If you did not make this request then simply ignore this email and no changes wi
 def forgot_password():
     if request.method == 'POST':
         email = request.form['email']
-        user = get_user_by_email(email)  # Fetch user from your database
+        user = get_user_by_email(email)
         
         if user:
-
             s = itsdangerous.URLSafeTimedSerializer(app.secret_key)
             token = s.dumps(email, salt='password-reset-salt')
             send_reset_email(email, token)
@@ -203,23 +197,28 @@ def forgot_password():
 
 @app.route('/blog', methods=['GET'])
 def blog():
-    return render_template('blog.html') 
+    return render_template('blog.html')
+
 
 @app.route('/contact', methods=['GET'])
 def contact():
-    return render_template('contact.html') 
+    return render_template('contact.html')
+
 
 @app.route('/about', methods=['GET'])
 def about():
-    return render_template('about.html') 
+    return render_template('about.html')
+
 
 @app.route('/membership', methods=['GET'])
 def membership():
     return render_template('membership.html')
 
+
 @app.route('/back_to_login', methods=['GET'])
 def back_to_login():
     return redirect(url_for('login'))
+
 
 @app.route('/write', methods=['GET', 'POST'])
 def Write():
