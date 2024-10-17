@@ -148,7 +148,7 @@ def dashboard():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))  # Redirects to the login page
 
 
 @app.route('/post/<int:post_id>', strict_slashes=False)
