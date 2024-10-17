@@ -161,16 +161,16 @@ This **Blogging Platform** enables users to sign up, log in, write blog posts, a
    pip install -r requirements.txt
    ```
 
-4. **Database Setup**
-   Create an SQLite database (or PostgreSQL for production) and apply migrations:
+4. **Flask Pagination**
+   Install Flash paginate
    ```bash
-   flask db upgrade
+   pip install flask
    ```
 
 5. **Run the Application**
    Start the Flask development server:
    ```bash
-   flask run
+   python app.py
    ```
 
    The app will be accessible at `http://127.0.0.1:5000`.
@@ -184,7 +184,7 @@ This **Blogging Platform** enables users to sign up, log in, write blog posts, a
 1. **Start Backend**  
    In the terminal, run:
    ```bash
-   flask run
+   python app.py
    ```
 
 2. **Access the Platform**  
