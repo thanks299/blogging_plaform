@@ -7,6 +7,10 @@
   --primary-foreground: 355 100% 97%;
 }
 
+.aquamarine-bg {
+  background-color: aquamarine;
+}
+
 .dark {
   --background: 224 71% 4%;
   --foreground: 213 31% 91%;
