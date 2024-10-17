@@ -164,7 +164,8 @@ This **Blogging Platform** enables users to sign up, log in, write blog posts, a
 4. **Flask Pagination**
    Install Flash paginate
    ```bash
-   pip install flask
+   pip install flask-paginate
+
    ```
 
 5. **Run the Application**
