@@ -12,7 +12,7 @@ import itsdangerous
 from flask_mail import Mail, Message  # For sending emails
 from authlib.integrations.flask_client import OAuth
 from config import Config
-from flask_paginate import get_page_parameter, Pagination
+from flask_paginate import get_page_parameter
 
 
 app = Flask(__name__)
@@ -67,12 +67,10 @@ def index():
     
     posts = Post.query.order_by(Post.id.desc()).offset(offset).limit(per_page).all()
     
-    pagination = Pagination(page=page, total=total, per_page=per_page, css_framework='bootstrap4')
     
     return render_template('index.html', 
                            posts=posts, 
-                           page_num=page, 
-                           total_pages=pagination.pages)
+                           page_num=page)
 
 
 
