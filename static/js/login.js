@@ -1,93 +1,86 @@
-// Get the form elements
-const form = document.querySelector('form');
-const usernameInput = document.querySelector('input[name="username"]');
-const passwordInput = document.querySelector('input[name="password"]');
+document.addEventListener("DOMContentLoaded", function () {
+  const loginForm = document.querySelector("form");
+  const loginInput = document.querySelector('input[name="login"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+  const passwordStrengthIndicator = document.createElement("div");
+  
+  passwordStrengthIndicator.classList.add("password-strength-indicator");
+  passwordInput.parentNode.insertBefore(passwordStrengthIndicator, passwordInput.nextSibling);
 
-// Add event listener to the form submission
-form.addEventListener('submit', (e) => {
-  // Prevent default form submission behavior
-  e.preventDefault();
+  loginForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
 
-  // Validate username and password
-  if (usernameInput.value.trim() === '' || passwordInput.value.trim() === '') {
-    alert('Please fill in both username and password.');
-    return;
+      // Basic validation (you can add more complex checks if needed)
+      if (loginInput.value.trim() === "") {
+          alert("Please enter your username or email.");
+          return;
+      }
+      if (passwordInput.value.trim() === "") {
+          alert("Please enter your password.");
+          return;
+      }
+
+      // Simulate a successful login (you can replace this with an actual AJAX call)
+      alert("Login successful!");
+
+      // Optionally, you can submit the form programmatically here
+      // loginForm.submit();
+  });
+
+  // Optional: Add focus effect on inputs
+  loginInput.addEventListener("focus", function () {
+      loginInput.classList.add("input-focused");
+  });
+
+  loginInput.addEventListener("blur", function () {
+      if (loginInput.value.trim() === "") {
+          loginInput.classList.remove("input-focused");
+      }
+  });
+
+  passwordInput.addEventListener("focus", function () {
+      passwordInput.classList.add("input-focused");
+  });
+
+  passwordInput.addEventListener("blur", function () {
+      if (passwordInput.value.trim() === "") {
+          passwordInput.classList.remove("input-focused");
+      }
+  });
+
+  // Password strength checker
+  passwordInput.addEventListener("input", function () {
+      const password = passwordInput.value;
+      const strength = checkPasswordStrength(password);
+      updatePasswordStrengthIndicator(strength);
+  });
+
+  function checkPasswordStrength(password) {
+      let strength = "weak";
+
+      // Check for strength criteria
+      if (password.length >= 8) {
+          if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[!@#$%^&*]/.test(password)) {
+              strength = "strong";
+          } else if (/[A-Z]/.test(password) || /[a-z]/.test(password) || /\d/.test(password)) {
+              strength = "medium";
+          }
+      }
+      return strength;
   }
 
-  // Submit the form
-  form.submit();
+  function updatePasswordStrengthIndicator(strength) {
+      passwordStrengthIndicator.textContent = `Password Strength: ${strength.charAt(0).toUpperCase() + strength.slice(1)}`;
+      switch (strength) {
+          case "strong":
+              passwordStrengthIndicator.style.color = "#00FF00"; // Bright green
+              break;
+          case "medium":
+              passwordStrengthIndicator.style.color = "#FFFF00"; // Bright yellow
+              break;
+          case "weak":
+              passwordStrengthIndicator.style.color = "#FF0000"; // Bright red
+              break;
+      }
+  }
 });
-
-// Add event listener to the username input
-usernameInput.addEventListener('input', () => {
-  // Check username length
-  if (usernameInput.value.length > 50) {
-    alert('Username should not exceed 50 characters.');
-    usernameInput.value = usernameInput.value.substring(0, 50);
-  }
-});
-
-// Add event listener to the password input
-passwordInput.addEventListener('input', () => {
-  // Check password length
-  if (passwordInput.value.length > 100) {
-    alert('Password should not exceed 100 characters.');
-    passwordInput.value = passwordInput.value.substring(0, 100);
-  }
-});
-
-// Optional: Add a password strength meter
-const passwordStrengthMeter = document.createElement('div');
-passwordStrengthMeter.className = 'password-strength-meter';
-passwordInput.parentNode.appendChild(passwordStrengthMeter);
-
-passwordInput.addEventListener('input', () => {
-  const passwordStrength = getPasswordStrength(passwordInput.value);
-  passwordStrengthMeter.textContent = passwordStrength.message;
-  passwordStrengthMeter.className = `password-strength-meter ${passwordStrength.className}`;
-});
-
-function getPasswordStrength(password) {
-  let strength = 0;
-  const messages = [
-    'Very weak',
-    'Weak',
-    'Medium',
-    'Strong',
-    'Very strong'
-  ];
-  const classes = [
-    'weak',
-    'weak',
-    'medium',
-    'strong',
-    'strong'
-  ];
-
-  // Check password length
-  if (password.length < 8) {
-    return { message: messages[0], className: classes[0] };
-  }
-
-  // Check for digits
-  if (/\d/.test(password)) {
-    strength++;
-  }
-
-  // Check for uppercase letters
-  if (/[A-Z]/.test(password)) {
-    strength++;
-  }
-
-  // Check for lowercase letters
-  if (/[a-z]/.test(password)) {
-    strength++;
-  }
-
-  // Check for special characters
-  if (/[^A-Za-z0-9]/.test(password)) {
-    strength++;
-  }
-
-  return { message: messages[strength], className: classes[strength] };
-}

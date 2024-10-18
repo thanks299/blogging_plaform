@@ -1,89 +1,70 @@
-// Get the form elements
-const form = document.querySelector('form');
-const usernameInput = document.querySelector('input[name="username"]');
-const emailInput = document.querySelector('input[name="email"]');
-const passwordInput = document.querySelector('input[name="password"]');
+document.addEventListener("DOMContentLoaded", function () {
+  const registerForm = document.querySelector("form");
+  const usernameInput = document.querySelector('input[name="username"]');
+  const emailInput = document.querySelector('input[name="email"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+  const passwordStrengthIndicator = document.createElement("div");
+  
+  passwordStrengthIndicator.classList.add("password-strength-indicator");
+  passwordInput.parentNode.insertBefore(passwordStrengthIndicator, passwordInput.nextSibling);
 
-// Add event listener to the form submission
-form.addEventListener('submit', (e) => {
-  // Prevent default form submission behavior
-  e.preventDefault();
+  registerForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission
 
-  // Validate username
-  if (usernameInput.value.trim() === '') {
-    alert('Please enter a username.');
-    return;
+      // Basic validation
+      if (usernameInput.value.trim() === "") {
+          alert("Please enter your username.");
+          return;
+      }
+      if (emailInput.value.trim() === "") {
+          alert("Please enter your email.");
+          return;
+      }
+      if (passwordInput.value.trim() === "") {
+          alert("Please enter your password.");
+          return;
+      }
+
+      // Simulate a successful registration (you can replace this with an actual AJAX call)
+      alert("Registration successful!");
+
+      // Optionally, you can submit the form programmatically here
+      // registerForm.submit();
+  });
+
+  // Password strength checker
+  passwordInput.addEventListener("input", function () {
+      const password = passwordInput.value;
+      const strength = checkPasswordStrength(password);
+      updatePasswordStrengthIndicator(strength);
+  });
+
+  function checkPasswordStrength(password) {
+      let strength = "weak";
+
+      // Check for strength criteria
+      if (password.length >= 8) {
+          if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[!@#$%^&*]/.test(password)) {
+              strength = "strong";
+          } else if (/[A-Z]/.test(password) || /[a-z]/.test(password) || /\d/.test(password)) {
+              strength = "medium";
+          }
+      }
+      return strength;
   }
 
-  // Validate email
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailRegex.test(emailInput.value)) {
-    alert('Please enter a valid email address.');
-    return;
+  function updatePasswordStrengthIndicator(strength) {
+      passwordStrengthIndicator.textContent = `Password Strength: ${strength.charAt(0).toUpperCase() + strength.slice(1)}`;
+      switch (strength) {
+          case "strong":
+              passwordStrengthIndicator.style.color = "#00FF00"; // Bright green
+              break;
+          case "medium":
+              passwordStrengthIndicator.style.color = "#FFFF00"; // Bright yellow
+              break;
+          case "weak":
+              passwordStrengthIndicator.style.color = "#FF0000"; // Bright red
+              break;
+      }
   }
-
-  // Validate password
-  if (passwordInput.value.length < 8) {
-    alert('Password should be at least 8 characters long.');
-    return;
-  }
-
-  // Submit the form
-  form.submit();
 });
-
-// Add event listener to the password input
-passwordInput.addEventListener('input', () => {
-  // Check password strength
-  const passwordStrength = getPasswordStrength(passwordInput.value);
-  const passwordStrengthElement = document.createElement('div');
-  passwordStrengthElement.textContent = passwordStrength.message;
-  passwordStrengthElement.className = passwordStrength.className;
-  passwordInput.parentNode.appendChild(passwordStrengthElement);
-});
-
-// Password strength function
-function getPasswordStrength(password) {
-  let strength = 0;
-  const messages = [
-    'Very weak',
-    'Weak',
-    'Medium',
-    'Strong',
-    'Very strong'
-  ];
-  const classes = [
-    'weak',
-    'weak',
-    'medium',
-    'strong',
-    'strong'
-  ];
-
-  // Check password length
-  if (password.length < 8) {
-    return { message: messages[0], className: classes[0] };
-  }
-
-  // Check for digits
-  if (/\d/.test(password)) {
-    strength++;
-  }
-
-  // Check for uppercase letters
-  if (/[A-Z]/.test(password)) {
-    strength++;
-  }
-
-  // Check for lowercase letters
-  if (/[a-z]/.test(password)) {
-    strength++;
-  }
-
-  // Check for special characters
-  if (/[^A-Za-z0-9]/.test(password)) {
-    strength++;
-  }
-
-  return { message: messages[strength], className: classes[strength] };
-}

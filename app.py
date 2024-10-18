@@ -141,7 +141,12 @@ def delete_post(post_id):
 @app.route('/dashboard', methods=['GET'], strict_slashes=False)
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    user_posts = Post.query.filter_by(author=current_user).count()
+    total_users = User.query.count()
+    total_posts = Post.query.count()
+    
+    return render_template('dashboard.html', user_posts=user_posts, total_users=total_users, total_posts=total_posts)
+
 
 
 @app.route('/logout', strict_slashes=False)
@@ -194,6 +199,27 @@ def forgot_password():
     
     return render_template('forgot-password.html')
 
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    s = itsdangerous.URLSafeTimedSerializer(app.secret_key)
+    try:
+        email = s.loads(token, salt='password-reset-salt', max_age=3600)  # token expires after 1 hour
+    except itsdangerous.SignatureExpired:
+        flash('The password reset link is expired.', 'danger')
+        return redirect(url_for('forgot_password'))
+    
+    # Process password reset form here
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        user = User.query.filter_by(email=email).first()
+        user.password = generate_password_hash(new_password, method='sha256')
+        db.session.commit()
+        flash('Your password has been reset!', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template('reset_password.html', token=token)
+
+
 
 @app.route('/blog', methods=['GET'])
 def blog():
@@ -223,6 +249,10 @@ def back_to_login():
 @app.route('/write', methods=['GET', 'POST'])
 def Write():
     return render_template('post.html')
+
+@app.route('/reading-list', methods=['GET', 'POST'])
+def reading():
+    return render_template('reading-list.html')
 
 
 if __name__ == '__main__':

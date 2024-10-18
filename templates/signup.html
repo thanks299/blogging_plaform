@@ -8,15 +8,11 @@
 </head>
 <body>
     <div class="container">
+        <img src="{{ url_for('static', filename='images/treefree image.png') }}" alt="TREEFREE" width="200px" height="100px">
         <h1>Sign Up</h1>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="alert alert-danger">
-                {{ messages[0] }}
-            </div>
-        {% endif %}
-        {% endwith %}
+        
         <form method="POST" action="{{ url_for('signup') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>

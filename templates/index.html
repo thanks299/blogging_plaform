@@ -11,6 +11,7 @@
     <div class="flex-col min-h-screen">
         <header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div class="container flex h-14 items-center">
+                <!-- Header content here -->
                 <div class="mr-4 hidden md:flex">
                     <a class="mr-6 flex items-center space-x-2" href="/">
                         <i data-lucide="book-open" class="h-6 w-6"></i>
@@ -23,10 +24,6 @@
                 </button>
                 <div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
                     <nav class="flex items-center space-x-6 button-container ">
-                        <nav class="flex items-center space-x-6 text-sm font-medium">
-                            <a href="/about">About</a>
-                            <a href="/membership">Membership</a>
-                        </nav>
                         <div class="w-full flex-1 md:w-auto md:flex-none">
                             <form>
                                 <div class="relative search-container">
@@ -35,6 +32,10 @@
                                 </div>
                             </form>
                         </div>
+                        <nav class="flex items-center space-x-6 text-sm font-medium">
+                            <a href="/about">About</a>
+                            <a href="/membership">Membership</a>
+                        </nav>
                         <a href="{{ url_for('login') }}"><button class="btn btn-ghost mr-2">login</button></a>
                         <a href="{{ url_for('GetStarted') }}"><button class="btn">Get Started</button></a>
                     </nav>
@@ -43,6 +44,7 @@
         </header>
         <main class="flex-1">
             <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+                <!-- Welcome section -->
                 <div class="container px-4 md:px-6">
                     <div class="flex flex-col items-center space-y-4 text-center">
                         <div class="space-y-2">
@@ -64,6 +66,7 @@
                     </div>
                 </div>
             </section>
+            <!-- Featured Articles Section -->
             <section class="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
                 <div class="container px-4 md:px-6">
                     <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8">Featured Articles</h2>
@@ -73,7 +76,9 @@
                 </div>
             </section>
         </main>
+
         <footer class="w-full py-6 bg-gray-100 dark:bg-gray-800">
+            <!-- Footer content here -->
             <nav>
                 <nav class="social-icon">
                     <div class="social-icons">
@@ -112,6 +117,52 @@
             </nav>
         </footer>
     </div>
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/script.js') }}">
+
+    <!-- Dynamic Article Insertion Script -->
+    <script>
+        const featuredArticles = [
+            {
+                title: "The Future of Sustainability",
+                content: "Explore how TREEFREE is revolutionizing sustainable practices for a greener future."
+            },
+            {
+                title: "Innovative Eco-friendly Technologies",
+                content: "Delve into cutting-edge technologies that help reduce waste and protect the environment."
+            },
+            {
+                title: "How to Live a Zero-Waste Life",
+                content: "Practical tips and strategies for minimizing your environmental footprint."
+            }
+        ];
+
+        const articlesContainer = document.getElementById('featured-articles');
+
+        // Function to insert the articles
+        function insertArticles() {
+            featuredArticles.forEach(article => {
+                const articleElement = document.createElement('article');
+                articleElement.classList.add('bg-white', 'shadow-md', 'rounded-lg', 'p-6');
+
+                const titleElement = document.createElement('h3');
+                titleElement.classList.add('text-xl', 'font-bold', 'mb-4');
+                titleElement.textContent = article.title;
+
+                const contentElement = document.createElement('p');
+                contentElement.classList.add('text-gray-600');
+                contentElement.textContent = article.content;
+
+                articleElement.appendChild(titleElement);
+                articleElement.appendChild(contentElement);
+
+                articlesContainer.appendChild(articleElement);
+            });
+        }
+
+        // Call the function to insert articles when the page loads
+        window.onload = insertArticles;
+    </script>
+
+    <!-- Other scripts -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
