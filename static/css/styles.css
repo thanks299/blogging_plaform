@@ -34,6 +34,15 @@ body {
   max-width: 1200px;
 }
 
+a {
+  color: #ff4d80;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .start {
   width: 100%;
   margin-inline: auto;
