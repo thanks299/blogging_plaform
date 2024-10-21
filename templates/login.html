@@ -24,7 +24,7 @@
                 <img src="{{ url_for('static', filename='images/google-logo.png') }}" alt="Google Logo" class="google-logo">
                     Sign in with Google
             </button>
-			<form method="post">
+			<form method="post" action="{{ url_for('login') }}">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
                 <input type="text" name="login" placeholder="Enter your username or email" required>
@@ -41,6 +41,6 @@
             <a href="{{ url_for('forgot_password') }}">Forgot your password?</a>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/login.js') }}"></script> -->
 </body>
 </html>
