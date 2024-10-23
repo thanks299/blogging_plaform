@@ -225,6 +225,19 @@ def Write():
 def reading():
     return render_template('reading-list.html')
 
+@app.route('/settings')
+def settings():
+    return render_template('settings.html')
+
+@app.route('/api/user', methods=['GET'])
+def get_user():
+    # Simulated user data; in a real application, this data comes from your database
+    user_data = {
+        'username': 'john_doe',
+        'email': 'johndoe@example.com'
+    }
+    return jsonify(user_data)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
