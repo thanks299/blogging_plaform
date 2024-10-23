@@ -101,7 +101,6 @@ def GetStarted():
 
 
 @app.route('/post', methods=['GET', 'POST'], strict_slashes=False)
-@login_required
 def create_post():
     if request.method == 'POST':
         title = request.form.get('title')
@@ -114,7 +113,6 @@ def create_post():
 
 
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'], strict_slashes=False)
-@login_required
 def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
@@ -128,13 +126,12 @@ def edit_post(post_id):
 
 
 @app.route('/post/<int:post_id>/delete', methods=['POST'], strict_slashes=False)
-@login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
-        abort(403)  # Forbidden access
-    db.session.delete(post)
-    db.session.commit()
+        abort(403)
+        db.session.delete(post)
+        db.session.commit()
     return redirect(url_for('index'))
 
 

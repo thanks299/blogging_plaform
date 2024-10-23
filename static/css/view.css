@@ -1,0 +1,19 @@
+.delete {
+    color: white;
+    background-color: #ff4d80;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    filter: brightness(0.9);
+}
+
+.delete:hover{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.space-x-6 > * + * { 
+    margin-inline-start: clamp(0.5rem, 2vw, 1.5rem); 
+  }
