@@ -38,6 +38,19 @@ with app.app_context():
     db.create_all()
 
 
+@app.route('/')
+def index():
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    per_page = 9  # Number of posts per page
+    offset = (page - 1) * per_page
+    total = Post.query.count()
+
+    posts = Post.query.order_by(Post.id.desc()).offset(offset).limit(per_page).all()
+    return render_template('index.html', 
+                           posts=posts, 
+                           page_num=page)
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -57,18 +70,6 @@ def signup():
         return redirect(url_for('login'))
     
     return render_template('signup.html')
-
-@app.route('/')
-def index():
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    per_page = 9  # Number of posts per page
-    offset = (page - 1) * per_page
-    total = Post.query.count()
-
-    posts = Post.query.order_by(Post.id.desc()).offset(offset).limit(per_page).all()
-    return render_template('index.html', 
-                           posts=posts, 
-                           page_num=page)
 
 
 @app.route('/login', methods=['GET', 'POST'])
